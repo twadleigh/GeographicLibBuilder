@@ -1,6 +1,6 @@
-# GeographicLibBuilder builder
+# GeographicLib builder
 
-This repository builds binary artifacts for the GeographicLibBuilder project.
+This repository builds binary artifacts for the GeographicLib project.
 This repository has a default .travis.yml file that can be used to build
 binary artifacts on Travis CI. You will however need to setup the release
 upload manually. See https://docs.travis-ci.com/user/deployment/releases/.
