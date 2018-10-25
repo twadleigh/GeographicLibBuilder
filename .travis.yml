@@ -1,8 +1,8 @@
 language: julia
 os:
-  - linux
+- linux
 julia:
-  - 1.0
+- 1.0
 notifications:
   email: false
 git:
@@ -10,17 +10,23 @@ git:
 cache:
   timeout: 1000
   directories:
-    - downloads
+  - downloads
 env:
   global:
-    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
-    - BINARYBUILDER_AUTOMATIC_APPLE=false
+  - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+  - BINARYBUILDER_AUTOMATIC_APPLE=false
 sudo: required
-
-# Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
-
+- julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
 script:
-  - julia build_tarballs.jl
-
+- julia build_tarballs.jl
+deploy:
+  provider: releases
+  api_key:
+    secure: oKcuZQzwK0nSjhHDKKWK+rpgW0HMUFEqTvLZsbDU48TPmkYNugF45EHlMUgUqSPDWvyx6cX4KnmU4K5a84kivP64e3lOZ6A4+SGdDAcCBNtvmnwSUtRAHGIyXumIfvDVOgYTNzxoSuP0fhyJoxbRrFxHQr1iy7mJTfCQlfMEFs/FX0AXIalu6tHGKCDAJFyiOhEbkwEOkHIldJRupEKEnFIuWqgORSD2PnfgZKSzBzcKNBRX16MUavbUz0pgdr2MDPeEi+jMx1N7pW/ltGAkwZ/yEihTqAo1wypxFhxiOpR1Uhw4bVSA58TFK/HkuCKf00165osEzfvAdEZATZ3yq7yclfqE6w2v4Cf/OPzIx/p9ZOTGXPnyQjk0Qy6DlTBX/Wlx2nhc9Cr3zMLDeOJnjbm+sI0XltyxzE8OjUbF9a1gCkKUTubMo0p/WASMZNG1hx34raSsE3lBDuRDzkh7g8HnrY6xiYjrk3VTv27WeRe1vDzLUGrANLAOzuNj2ZFR14WfkFdJNng32E8URVnlSR7N3wt2m+FNEwDG7b7d34UiW05LTheN/7Em0ZqFGL96MXzOQLdDO6sYeWLsf1mm9DSjGnz6xlwYlLGcmL5+FSw9qVcrxR86561/8jVoiNB4FYJ+Qk3bv3uUFjX+3WeZw5xNlN+BlD3h0sk/YO0SzJw=
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: twadleigh/GeographicLibBuilder
+    tags: true
